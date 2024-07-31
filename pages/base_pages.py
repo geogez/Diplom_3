@@ -3,12 +3,11 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.action_chains import ActionChains
 from locators.locators import Construction
 
-
 class BasePage:
 
     def __init__(self, browser):
         self.browser = browser
-        self.actions = ActionChains(self, browser)
+        self.actions = ActionChains(browser)
 
     def click_on_element(self, locator):
         button = self.browser.find_element(*locator)
@@ -32,3 +31,6 @@ class BasePage:
 
     def drag_and_drop_method(self, source, target):
         self.actions.drag_and_drop(source, target).perform()
+
+    def wait_until_element_invisible(self, locator):
+        WebDriverWait(self.browser, 10).until(ec.invisibility_of_element_located(locator))

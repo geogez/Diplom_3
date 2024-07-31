@@ -1,3 +1,5 @@
+import time
+
 from locators.locators import MainPageLocators as mp
 from locators.locators import Construction as cp
 from pages.main_page import MainPage
@@ -33,8 +35,8 @@ class TestMainFunctional:
     @allure.description('всплывающее окно закрывается кликом по крестику')
     def test_close_pop_up_windows_ingredients(self, browser):
         main_page = MainPage(browser)
-        main_page.check_close_modal_window_ingredient()
-        assert main_page.get_element_text(cp.check_text_details_ingredient) == ''
+        main_page.open_and_close_modal_window_ingredient()
+        assert not main_page.is_element_visible(cp.check_text_details_ingredient), 'Окно не закрылось'
 
     @allure.title('Проверка основного функционала')
     @allure.description('при добавлении ингредиента в заказ счётчик этого ингридиента увеличивается')
@@ -42,15 +44,15 @@ class TestMainFunctional:
         main_page = MainPage(browser)
         login_page = LoginPage(browser)
         login_page.authorize()
-        count_start = main_page.get_element_text(cp.check_ingredient_count)
+        count_start = int(main_page.get_element_text(cp.check_ingredient_count))
         source = login_page.find(cp.bay_burger)
         target = login_page.find(cp.basket)
         login_page.drag_and_drop_method(source, target)
-        count_finish = main_page.get_element_text(cp.check_ingredient_count)
+        count_finish = int(main_page.get_element_text(cp.check_ingredient_count))
         assert count_start < count_finish
 
     @allure.title('Проверка основного функционала')
-    @allure.description('залогиненный пользователь может оформить заказ')
+    @allure.description('Залогиненный пользователь может оформить заказ')
     def test_authorized_order(self, browser):
         main_page = MainPage(browser)
         login_page = LoginPage(browser)

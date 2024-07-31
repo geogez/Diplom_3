@@ -2,8 +2,8 @@ from selenium.webdriver.common.by import By
 
 class PathRecoveryPages:
     account_entry = (By.XPATH, "//button[text()='Войти в аккаунт']")
-    recovery_password = (By.XPATH, ".//a[text()='Восстановить пароль']")
-    check_text_on_page_recovery_password = (By.XPATH, ".//h2[text()='Восстановление пароля']")
+    recovery_password = (By.XPATH, "//*[text()='Восстановить пароль']")
+    check_text_on_page_recovery_password = (By.XPATH, "//*[text()='Восстановление пароля']")
     input_email_user = (By.XPATH, "//label[text()='Email']/following-sibling::*")
     recovery_button = (By.XPATH, "//button[text()='Восстановить']")
     check_text_code_recovery_password = (By.XPATH, "//label[text()='Введите код из письма']")
@@ -26,21 +26,22 @@ class MainPageLocators:
     check_text_on_construction_page = (By.CSS_SELECTOR, 'h1.text.text_type_main-large.mb-5.mt-10')
 
 class Construction:
-    first_ingredient = (By.XPATH, "//div[@class='BurgerIngredients_ingredients__container__3zaCt']/div[1]//a[1]")
+    first_ingredient = (By.XPATH, '//*[text()="Флюоресцентная булка R2-D3"]')
     bay_burger = (By.XPATH, '//*[@id="root"]/div/main/section[1]/div[2]/ul[1]/a[1]/img')
     check_text_details_ingredient = (By.XPATH, "//h2[contains(text(), 'Детали ингредиента')]")
     close_ingredient_window = (By.XPATH, '//button[contains(@class, "Modal_modal__close_modified__3V5XS")]')
-    check_ingredient_count = (By.XPATH, "//div[contains(@class, 'counter_counter__num__3nue1')]")
+    check_ingredient_count = (By.XPATH, "//*[contains(@class, 'totalContainer')]")
     basket = (By.XPATH, '//*[@id="root"]/div/main/section[2]/ul')
-    click_order = (By.XPATH, "//button[text()='Оформить заказ']")
+    click_order = (By.XPATH, "//*[text()='Оформить заказ']")
     check_text_successful_order = (By.XPATH, '//p[contains(text(),"Ваш заказ начали готовить")]')
+    constructor = (By.XPATH,"//*[text()='Конструктор']")
 
 class OrderFeed:
     first_order = (By.CLASS_NAME, "OrderHistory_dataBox__1mkxK")
-    check_text_details_order = (By.XPATH, '//p[@class="undefined text text_type_main-default mb-15"]')
-    indicator_count_order = (By.XPATH, '//h2[@class="Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m"]')
-    indicator_count_order_in_personal_account = (By.CLASS_NAME, 'OrderHistory_profileList__374GU OrderHistory_list__KcLDB')
+    check_text_details_order = (By.XPATH, "//*[text()='Cостав']")
+    indicator_count_order = (By.XPATH, "//*[contains(@class, 'title_shadow')]")
+    indicator_count_order_in_personal_account = (By.XPATH, "(//*[contains(@class, 'OrderHistory_textBox')])[last()]")
     count_all_time = (By.XPATH, "//p[@class = 'OrderFeed_number__2MbrQ text text_type_digits-large'][1]")
-    count_today = (By.XPATH, "//p[@class = 'OrderFeed_number__2MbrQ text text_type_digits-large'][2]")
-    close_modal_wind = (By.XPATH, '//button[@class="Modal_modal__close_modified__3V5XS Modal_modal__close__TnseK"]')
-    order_in_progress = (By.CLASS_NAME, 'OrderFeed_orderListReady__1YFem OrderFeed_orderList__cBvyi')
+    count_today = (By.XPATH,"//*[contains(text(),'Выполнено за сегодня:')]")
+    close_modal_wind = (By.XPATH, "//*[contains(@class, 'modal__close')]")
+    order_in_progress = (By.XPATH, "//*[text()='Ваш заказ начали готовить']")
