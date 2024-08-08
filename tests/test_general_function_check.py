@@ -1,10 +1,10 @@
-import time
-
 from locators.locators import MainPageLocators as mp
 from locators.locators import Construction as cp
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 import allure
+
+from data_strings import DataStrings
 
 
 class TestMainFunctional:
@@ -22,14 +22,15 @@ class TestMainFunctional:
         main_page = MainPage(browser)
         main_page.click_on_element(mp.order_list)
         main_page.click_on_element(mp.construction_button)
-        assert main_page.get_element_text(mp.check_text_on_construction_page) == 'Соберите бургер'
+        assert main_page.get_element_text(mp.check_text_on_construction_page) == DataStrings.pick_burger
 
     @allure.title('Проверка основного функционала')
     @allure.description('если кликнуть на ингредиент, появится всплывающее окно с деталями')
     def test_pop_up_windows_ingredients(self, browser):
         main_page = MainPage(browser)
+        main_page.wait_element(cp.constructor)
         main_page.click_on_element(cp.first_ingredient)
-        assert main_page.get_element_text(cp.check_text_details_ingredient) == 'Детали ингредиента'
+        assert main_page.get_element_text(cp.check_text_details_ingredient) == DataStrings.ingredient_details
 
     @allure.title('Проверка основного функционала')
     @allure.description('всплывающее окно закрывается кликом по крестику')
@@ -45,7 +46,7 @@ class TestMainFunctional:
         login_page = LoginPage(browser)
         login_page.authorize()
         count_start = int(main_page.get_element_text(cp.check_ingredient_count))
-        source = login_page.find(cp.bay_burger)
+        source = login_page.find(cp.first_ingredient)
         target = login_page.find(cp.basket)
         login_page.drag_and_drop_method(source, target)
         count_finish = int(main_page.get_element_text(cp.check_ingredient_count))
@@ -54,12 +55,10 @@ class TestMainFunctional:
     @allure.title('Проверка основного функционала')
     @allure.description('Залогиненный пользователь может оформить заказ')
     def test_authorized_order(self, browser):
-        main_page = MainPage(browser)
         login_page = LoginPage(browser)
         login_page.authorize()
-        source = login_page.find(cp.bay_burger)
+        source = login_page.find(cp.first_ingredient)
         target = login_page.find(cp.basket)
         login_page.drag_and_drop_method(source, target)
         login_page.click_on_element(cp.click_order)
-        assert main_page.get_element_text(cp.check_text_successful_order) == 'Ваш заказ начали готовить'
-
+        login_page.wait_for_text_appear(cp.successful_order, DataStrings.your_order_started_to_prepare)

@@ -3,6 +3,9 @@ from pages.base_pages import BasePage
 from data.data import UserData as ud
 import allure
 
+from data_strings import DataStrings
+
+
 class TestCheckRecoveryPasswordPage:
 
     @allure.title('Проверка функции: Восстановление пароля')
@@ -11,7 +14,7 @@ class TestCheckRecoveryPasswordPage:
         base_page = BasePage(browser)
         base_page.click_on_element(rp.account_entry)
         base_page.click_on_element(rp.recovery_password)
-        assert base_page.get_element_text(rp.check_text_on_page_recovery_password) == 'Восстановление пароля'
+        assert base_page.get_element_text(rp.check_text_on_page_recovery_password) == DataStrings.password_recovery
 
     @allure.title('Проверка функции: Восстановление пароля')
     @allure.description('ввод почты и клик по кнопке «Восстановить»')
@@ -21,7 +24,7 @@ class TestCheckRecoveryPasswordPage:
         base_page.click_on_element(rp.recovery_password)
         base_page.fill_field(rp.input_email_user, ud.email)
         base_page.click_on_element(rp.recovery_button)
-        assert base_page.get_element_text(rp.check_text_code_recovery_password) == 'Введите код из письма'
+        assert base_page.get_element_text(rp.check_text_code_recovery_password) == DataStrings.enter_code_from_email
 
     @allure.title('Проверка функции: Восстановление пароля')
     @allure.description('клик по кнопке показать/скрыть пароль делает поле активным — подсвечивает его')

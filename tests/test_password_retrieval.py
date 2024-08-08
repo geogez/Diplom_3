@@ -3,6 +3,8 @@ from pages.login_page import LoginPage
 from locators.locators import PathRecoveryPages as rp
 import allure
 
+from data_strings import DataStrings
+
 
 class TestPersonalAccount:
     @allure.title('Проверка раздела: Личный кабинет')
@@ -12,7 +14,8 @@ class TestPersonalAccount:
         login_page.authorize()
         login_page.click_on_element(mp.account_autorize_button)
         login_page.wait_element(mp.check_text_account_pages)
-        assert login_page.get_element_text(mp.check_text_account_pages) == 'В этом разделе вы можете изменить свои персональные данные'
+        assert login_page.get_element_text(
+            mp.check_text_account_pages) == DataStrings.you_can_change_your_personal_data
 
     @allure.title('Проверка раздела: Личный кабинет')
     @allure.description('переход в раздел «История заказов»,')
@@ -22,7 +25,7 @@ class TestPersonalAccount:
         login_page.click_on_element(mp.account_autorize_button)
         login_page.click_on_element(mp.order_history)
         login_page.wait_element(mp.check_text_order_history)
-        assert login_page.get_element_text(mp.check_text_order_history) in "Выполнен"
+        assert login_page.get_element_text(mp.check_text_order_history) in DataStrings.completed
 
     @allure.title('Проверка раздела: Личный кабинет')
     @allure.description('выход из аккаунта.')
@@ -31,5 +34,4 @@ class TestPersonalAccount:
         login_page.authorize()
         login_page.click_on_element(mp.account_autorize_button)
         login_page.click_on_element(mp.exit_button)
-        login_page.wait_element(rp.check_text_on_page_recovery_password)
-        assert login_page.get_element_text(rp.check_text_on_page_recovery_password) == 'Восстановить пароль'
+        login_page.wait_for_text_appear(rp.recovery_password, DataStrings.recover_password)

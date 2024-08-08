@@ -1,7 +1,7 @@
-from locators.locators import MainPageLocators as mp
 from locators.locators import PathRecoveryPages as rp
 from data.data import UserData as ud
 from pages.base_pages import BasePage
+
 
 class LoginPage(BasePage):
 
